@@ -1,0 +1,53 @@
+---
+# *********************************
+# * Install docker on Rocky Linux *
+# *********************************
+- name: Ensure remove old docker versions
+  ansible.builtin.dnf:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      - podman
+      - runc
+    state: absent
+  become: true
+
+- name: Install dnf-plugins-core package
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+  become: true
+
+- name: Add official docker repository
+  ansible.builtin.yum_repository:
+    name: docker-ce
+    description: Docker CE Stable - Rocky Linux
+    baseurl: https://download.docker.com/linux/centos/{{ ansible_facts['distribution_major_version'] }}/x86_64/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://download.docker.com/linux/centos/gpg
+  become: true
+
+- name: Install docker packages
+  ansible.builtin.dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+  become: true
+
+- name: Start & enable docker
+  ansible.builtin.systemd_service:
+    name: docker.service
+    state: started
+    enabled: true
+  become: true

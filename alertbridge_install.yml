@@ -1,0 +1,11 @@
+---
+#########################
+# AlertBridge - Install #
+#########################
+- name: Install docker
+  hosts: server
+  gather_facts: true
+  roles:
+    - 01_install_docker
+  tags:
+    - docker
