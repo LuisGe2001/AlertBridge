@@ -15,3 +15,10 @@
 - name: Install Docker on Ubuntu Server
   include_tasks: ubuntu/install_docker.yml
   when: ansible_facts['distribution'] == "Ubuntu"
+
+# **********************
+# * Debian Environment *
+# **********************
+- name: Install Docker on Debian Server
+  include_tasks: debian/install_docker.yml
+  when: ansible_facts['distribution'] == "Debian"
