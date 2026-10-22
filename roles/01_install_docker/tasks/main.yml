@@ -8,3 +8,10 @@
 - name: Install Docker on Rocky Linux Server
   include_tasks: rl/install_docker.yml
   when: ansible_facts['distribution'] == "Rocky"
+
+# **********************
+# * Ubuntu Environment *
+# **********************
+- name: Install Docker on Ubuntu Server
+  include_tasks: ubuntu/install_docker.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
