@@ -1,0 +1,26 @@
+---
+########################
+# 02 - Install Grafana #
+########################
+- name: Create Grafana directory
+  ansible.builtin.file:
+    path: "{{ GRAFANA_COMPOSE_PATH }}"
+    state: directory
+    owner: root
+    group: docker
+    mode: "0750"
+
+- name: Copy docker-compose on server
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ GRAFANA_COMPOSE_PATH }}/docker-compose.yml"
+    owner: root
+    group: docker
+    mode: "0640"
+
+- name: Deploy Grafana container
+  community.docker.docker_compose_v2:
+    project_src: "{{ GRAFANA_COMPOSE_PATH }}"
+    state: present
+    pull: always
+    remove_orphans: true

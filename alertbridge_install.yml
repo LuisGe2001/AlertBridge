@@ -9,3 +9,11 @@
     - 01_install_docker
   tags:
     - docker
+
+- name: Install Grafana
+  hosts: server
+  gather_facts: true
+  roles:
+    - 02_install_grafana
+  tags:
+    - grafana
