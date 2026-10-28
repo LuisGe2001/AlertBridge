@@ -6,19 +6,19 @@
 # * Rocky Linux Environment *
 # ***************************
 - name: Install Docker on Rocky Linux Server
-  include_tasks: rl/install_docker.yml
+  import_tasks: rl/install_docker.yml
   when: ansible_facts['distribution'] == "Rocky"
 
 # **********************
 # * Ubuntu Environment *
 # **********************
 - name: Install Docker on Ubuntu Server
-  include_tasks: ubuntu/install_docker.yml
+  import_tasks: ubuntu/install_docker.yml
   when: ansible_facts['distribution'] == "Ubuntu"
 
 # **********************
 # * Debian Environment *
 # **********************
 - name: Install Docker on Debian Server
-  include_tasks: debian/install_docker.yml
+  import_tasks: debian/install_docker.yml
   when: ansible_facts['distribution'] == "Debian"

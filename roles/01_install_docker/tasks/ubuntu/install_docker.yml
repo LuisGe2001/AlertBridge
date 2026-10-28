@@ -51,7 +51,7 @@
       URIs: https://download.docker.com/linux/ubuntu
       Suites: {{ ansible_facts['distribution_release'] }}
       Components: stable
-      Architectures: x86_64
+      Architectures: amd64
       Signed-By: /etc/apt/keyrings/docker.asc
     mode: '0644'
   become: true
