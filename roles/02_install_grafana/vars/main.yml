@@ -2,8 +2,10 @@
 #####################
 # Grafana variables #
 #####################
-GRAFANA_CONTAINER_NAME: "grafana"
-GRAFANA_IMAGE: "grafana/grafana"
-GRAFANA_PORT: 3000
-GRAFANA_STORAGE: "/var/lib/docker/volumes/grafana"
-GRAFANA_COMPOSE_PATH: "/opt/grafana/docker.compose.yml"
+grafana_container_name: "grafana"
+grafana_image: "grafana/grafana:13.2"
+grafana_port: 3000
+grafana_storage: "/var/lib/docker/volumes/grafana"
+grafana_compose_path: "/opt/grafana"
+grafana_uid: 472
+grafana_gid: 472

@@ -4,23 +4,42 @@
 ########################
 - name: Create Grafana directory
   ansible.builtin.file:
-    path: "{{ GRAFANA_COMPOSE_PATH }}"
+    path: "{{ grafana_compose_path }}"
     state: directory
     owner: root
     group: docker
     mode: "0750"
+  become: true
+
+- name: Create Grafana storage directory
+  ansible.builtin.file:
+    path: "{{ grafana_storage }}"
+    state: directory
+    owner: "{{ grafana_uid }}"
+    group: "{{ grafana_gid }}"
+    mode: "0755"
+  become: true
 
 - name: Copy docker-compose on server
   ansible.builtin.template:
     src: docker-compose.yml.j2
-    dest: "{{ GRAFANA_COMPOSE_PATH }}/docker-compose.yml"
+    dest: "{{ grafana_compose_path }}/docker-compose.yml"
     owner: root
     group: docker
     mode: "0640"
+  become: true
+
+- name: Remove existing Grafana container if present
+  community.docker.docker_container:
+    name: "{{ grafana_container_name }}"
+    state: absent
+    force_kill: true
+  become: true
 
 - name: Deploy Grafana container
   community.docker.docker_compose_v2:
-    project_src: "{{ GRAFANA_COMPOSE_PATH }}"
+    project_src: "{{ grafana_compose_path }}"
     state: present
     pull: always
     remove_orphans: true
+  become: true
